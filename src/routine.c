@@ -6,7 +6,7 @@
 /*   By: adpinhei <adpinhei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/26 17:41:15 by adpinhei          #+#    #+#             */
-/*   Updated: 2025/12/26 17:45:20 by adpinhei         ###   ########.fr       */
+/*   Updated: 2025/12/27 15:37:45 by adpinhei         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -20,3 +20,8 @@
 	4. sleep for table->time_to_sleep
 	5. check for table->time_to_die
 */
+
+void	*routine(void *args)
+{
+	
+}

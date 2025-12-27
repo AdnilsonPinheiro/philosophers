@@ -6,7 +6,7 @@
 /*   By: adpinhei <adpinhei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/26 16:13:57 by adpinhei          #+#    #+#             */
-/*   Updated: 2025/12/26 16:40:22 by adpinhei         ###   ########.fr       */
+/*   Updated: 2025/12/27 15:47:30 by adpinhei         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -24,7 +24,7 @@ int	ft_atol(char *str)
 	if (!str)
 		return (0);
 	c = 0;
-	while (str[c] && str[c] < '0' || str[c] > '9')
+	while (str[c] && (str[c] < '0' || str[c] > '9'))
 	{
 		if (str[c] == '-')
 			return (-1);
@@ -32,7 +32,7 @@ int	ft_atol(char *str)
 	}
 	if (str[c] == '\0')
 		return (0);
-	while (str[c] && str[c] >= '0' && str[c] <= '9')
+	while (str[c] && (str[c] >= '0' && str[c] <= '9'))
 	{
 		i = i * 10 + (str[c] - 48);
 		c++;
@@ -42,6 +42,9 @@ int	ft_atol(char *str)
 	return ((int)i);
 }
 
+/// @brief check the validity of passed arguments
+/// @param argv the arguments passed from CLI
+/// @return 0 on success, greater than 0 on failure
 int	ft_check_args(char **argv)
 {
 	int	i;
@@ -51,17 +54,17 @@ int	ft_check_args(char **argv)
 	{
 		if (ft_atol(argv[i]) == 0)
 		{
-			printf("Number cannot be 0\n");
+			printf("Number cannot be 0.\n");
 			return (1);
 		}
 		else if (ft_atol(argv[i]) == -1)
 		{
-			printf("Number cannot be negative\n");
+			printf("Number cannot be negative.\n");
 			return (2);
 		}
 		else if (ft_atol(argv[i]) == -2)
 		{
-			printf("Number should not be greater than INT_MAX, c'mon\n");
+			printf("Number should not be greater than INT_MAX.\n");
 			return (3);
 		}
 		i++;

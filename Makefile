@@ -6,7 +6,7 @@
 #    By: adpinhei <adpinhei@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/12/26 15:24:18 by adpinhei          #+#    #+#              #
-#    Updated: 2025/12/26 17:15:12 by adpinhei         ###   ########.fr        #
+#    Updated: 2025/12/27 15:49:43 by adpinhei         ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -20,7 +20,7 @@ CC := cc
 ###############################################################################
 #                                    Flags                                    #
 ###############################################################################
-FLAGS = -Wall -Wextra -Werror -g
+FLAGS = -Wall -Wextra -Werror -pthread -g
 
 ###############################################################################
 #                                    vpath                                    #
@@ -37,7 +37,7 @@ BUILD_DIR := build
 #                               Source Files                                  #
 ###############################################################################
 
-SRC_FILES := main.c philo_utils.c clean.c
+SRC_FILES := main.c philo_utils.c clean.c routine.c
 
 ###############################################################################
 #                               Object Files                                  #
@@ -54,7 +54,7 @@ INCLUDES := philo.h
 ###############################################################################
 gdb: FLAGS += -g
 leak: FLAGS += -fsanitize=address,undefined -g
-thread: FLAGS += -fsanitize=thread,undefined -g
+thr: FLAGS += -fsanitize=thread,undefined -g
 
 ###############################################################################
 #                                Basic Rules                                  #
@@ -108,7 +108,7 @@ leak: $(NAME)
 	@echo "$(YELLOW)Running with sanitizers (adress, leak, undefined)$(RESET)"
 	@./$(NAME)
 
-thread: $(NAME)
+thr: $(NAME)
 	@echo "$(YELLOW)Running with sanitizers (threads, undefined)$(RESET)"
 	@./$(NAME)
 
@@ -117,18 +117,11 @@ thread: $(NAME)
 ###############################################################################
 clean:
 	@rm -rf $(BUILD_DIR)
-	@make --no-print-directory -C $(LIBFT_PATH) clean
 	@echo "$(BLUE)Cleaned object files$(RESET)"
 
 fclean: clean
 	@rm -f $(NAME)
-	@rm -rf test_log
-	@echo "$(BLUE)Cleaned test_log$(RESET)"
-	@rm -rf test_bonus_log
-	@echo "$(BLUE)Cleaned test_bonus_log$(RESET)"
-	@rm -f $(BONUS_NAME)
-	@make --no-print-directory -C $(LIBFT_PATH) fclean
-	@echo "$(BLUE)Cleaned executables$(RESET) $(NAME) $(BONUS_NAME)"
+	@echo "$(BLUE)Cleaned executables$(RESET) $(NAME)"
 
 re: fclean all
 
@@ -145,7 +138,7 @@ help:
 	@echo "  valgrind      - Run valgrind on mandatory"
 	@echo "  gdb           - Start gdb on mandatory"
 	@echo "  leak          - Start LSan for memory leaks"
-	@echo "  thread        - Start LSan for threads"
+	@echo "  thr           - Start LSan for threads"
 
 ###############################################################################
 #                               Color Codes                                   #

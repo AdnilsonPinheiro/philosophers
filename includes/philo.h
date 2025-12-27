@@ -6,7 +6,7 @@
 /*   By: adpinhei <adpinhei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/26 15:30:53 by adpinhei          #+#    #+#             */
-/*   Updated: 2025/12/26 18:57:32 by adpinhei         ###   ########.fr       */
+/*   Updated: 2025/12/27 15:44:26 by adpinhei         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -35,10 +35,18 @@ typedef struct s_table
 
 typedef struct s_philo
 {
-	pthread_t	id;
+	pthread_t	th_id;
 	t_table		*table;
 	long long	last_meal;
+	int			philo_id;
 }	t_philo;
+
+/******************************************************************************/
+/*                                 Routine                                    */
+/******************************************************************************/
+
+void	*routine(void *args);
+
 
 /******************************************************************************/
 /*                                  Utils                                     */
@@ -52,5 +60,6 @@ int		ft_check_args(char **argv);
 /******************************************************************************/
 
 void	ft_clean_table(t_table *table, char *msg);
+void	ft_clean_philo(t_philo *philo, int philo_number);
 
 #endif
