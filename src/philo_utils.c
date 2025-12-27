@@ -6,7 +6,7 @@
 /*   By: adpinhei <adpinhei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/26 16:13:57 by adpinhei          #+#    #+#             */
-/*   Updated: 2025/12/27 18:28:16 by adpinhei         ###   ########.fr       */
+/*   Updated: 2025/12/27 19:47:20 by adpinhei         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -72,6 +72,36 @@ int	ft_check_args(char **argv)
 			printf("Number should not be greater than INT_MAX.\n");
 			return (3);
 		}
+		i++;
+	}
+	return (0);
+}
+
+/// @brief initialize the table struct
+/// @param table the main struct
+/// @return 0 on success, greater than 0 on failure
+int	ft_init_table(t_table *table, char **argv)
+{
+	int	i;
+
+	table->death_flag = 0;
+	table->philo_number = ft_atol(argv[1]);
+	table->time_to_die = ft_atol(argv[2]);
+	table->time_to_eat = ft_atol(argv[3]);
+	table->time_to_sleep = ft_atol(argv[4]);
+	if (argv[5])
+		table->number_of_meals = ft_atol(argv[5]);
+	else
+		table->number_of_meals = -1;
+	gettimeofday(&table->start_time, NULL);
+	table->forks = malloc(sizeof(pthread_mutex_t) * table->philo_number);
+	if (pthread_mutex_init(&table->death_lock, NULL))
+		return (1);
+	i = 0;
+	while (i < table->philo_number)
+	{
+		if (pthread_mutex_init(&table->forks[i], NULL))
+			return (2);
 		i++;
 	}
 	return (0);

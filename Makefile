@@ -6,7 +6,7 @@
 #    By: adpinhei <adpinhei@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/12/26 15:24:18 by adpinhei          #+#    #+#              #
-#    Updated: 2025/12/27 18:05:13 by adpinhei         ###   ########.fr        #
+#    Updated: 2025/12/27 18:57:49 by adpinhei         ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -37,7 +37,7 @@ BUILD_DIR := build
 #                               Source Files                                  #
 ###############################################################################
 
-SRC_FILES := main.c philo_utils.c clean.c routine.c
+SRC_FILES := main.c philo_utils.c clean.c routine.c time.c
 
 ###############################################################################
 #                               Object Files                                  #

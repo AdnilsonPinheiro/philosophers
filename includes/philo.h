@@ -6,7 +6,7 @@
 /*   By: adpinhei <adpinhei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/26 15:30:53 by adpinhei          #+#    #+#             */
-/*   Updated: 2025/12/27 16:57:40 by adpinhei         ###   ########.fr       */
+/*   Updated: 2025/12/27 19:47:37 by adpinhei         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -46,21 +46,31 @@ typedef struct s_philo
 /*                                 Routine                                    */
 /******************************************************************************/
 
-void	*routine(void *args);
+void		*routine(void *args);
+void		ft_print_status(t_philo *philo, char *status);
+
+/******************************************************************************/
+/*                              Time Functions                                */
+/******************************************************************************/
+
+long long	ft_get_time(void);
+long long	ft_elapsed_time(struct timeval *start_time);
+void		ft_sleep(long long interval);
 
 
 /******************************************************************************/
 /*                                  Utils                                     */
 /******************************************************************************/
 
-int		ft_atol(char *str);
-int		ft_check_args(char **argv);
+int			ft_atol(char *str);
+int			ft_check_args(char **argv);
+int			ft_init_table(t_table *table, char **argv);
 
 /******************************************************************************/
 /*                                  Error                                     */
 /******************************************************************************/
 
-void	ft_clean_table(t_table *table, char *msg);
-void	ft_clean_philo(t_philo *philo, int philo_number);
+void		ft_clean_table(t_table *table, char *msg);
+void		ft_clean_philo(t_philo *philo, int philo_number);
 
 #endif
