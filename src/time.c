@@ -6,7 +6,7 @@
 /*   By: adpinhei <adpinhei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/27 18:57:34 by adpinhei          #+#    #+#             */
-/*   Updated: 2025/12/27 19:49:42 by adpinhei         ###   ########.fr       */
+/*   Updated: 2025/12/27 20:06:54 by adpinhei         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -33,7 +33,8 @@ long long	ft_elapsed_time(struct timeval *start_time)
 	long long		start_ms;
 	long long		current_ms;
 
-	if (gettimeofday(&current, NULL) != 0)
+	current = NULL;
+	if (gettimeofday(current, NULL) != 0)
 		return (-1);
 	start_ms = (start_time->tv_sec * 1000) + (start_time->tv_usec / 1000);
 	current_ms = (current->tv_sec * 1000) + (current->tv_usec / 1000);

@@ -6,7 +6,7 @@
 /*   By: adpinhei <adpinhei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/26 16:13:57 by adpinhei          #+#    #+#             */
-/*   Updated: 2025/12/27 19:47:20 by adpinhei         ###   ########.fr       */
+/*   Updated: 2025/12/27 20:05:47 by adpinhei         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -105,4 +105,41 @@ int	ft_init_table(t_table *table, char **argv)
 		i++;
 	}
 	return (0);
+}
+
+/// @brief summons all philosophers threads
+void	ft_summon_philo(t_table *table)
+{
+	int		i;
+	t_philo	*philos;
+
+	philos = malloc(sizeof(t_philo) * table->philo_number);
+	if (!philos)
+	{
+		ft_clean_table(table, "Unable to allocate philos.");
+		return ;
+	}
+	i = 0;
+	while (i < table->philo_number)
+	{
+		philos[i].table = table;
+		philos[i].last_meal = ft_get_time();
+		philos[i].meals_eaten = 0;
+		philos[i].philo_id = i + 1;
+		if (pthread_create(&philos[i].th_id, NULL, &routine, (void*)&philos[i]))
+		{
+			ft_clean_philo(philos, i);
+			ft_clean_table(table, "Unable to create thread.");
+			free (philos);
+			return ;
+		}
+		i++;
+	}
+	i = 0;
+	while (i < table->philo_number)
+	{
+		pthread_join(philos[i].th_id, NULL);
+		i++;
+	}
+	free(philos);
 }

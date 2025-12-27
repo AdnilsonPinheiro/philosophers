@@ -6,7 +6,7 @@
 /*   By: adpinhei <adpinhei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/26 15:30:53 by adpinhei          #+#    #+#             */
-/*   Updated: 2025/12/27 19:47:37 by adpinhei         ###   ########.fr       */
+/*   Updated: 2025/12/27 20:06:11 by adpinhei         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -65,6 +65,7 @@ void		ft_sleep(long long interval);
 int			ft_atol(char *str);
 int			ft_check_args(char **argv);
 int			ft_init_table(t_table *table, char **argv);
+void		ft_summon_philo(t_table *table);
 
 /******************************************************************************/
 /*                                  Error                                     */
