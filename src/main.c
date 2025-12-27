@@ -6,7 +6,7 @@
 /*   By: adpinhei <adpinhei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/26 15:43:54 by adpinhei          #+#    #+#             */
-/*   Updated: 2025/12/27 17:56:17 by adpinhei         ###   ########.fr       */
+/*   Updated: 2025/12/27 18:11:27 by adpinhei         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -42,6 +42,7 @@ int	ft_init_table(t_table *table, char **argv)
 	return (0);
 }
 
+/// @brief summons all philosophers threads
 void	ft_summon_philo(t_table *table)
 {
 	int		i;
@@ -83,7 +84,11 @@ int	main(int argc, char **argv)
 	t_table	table;
 
 	if (argc != 5 && argc != 6)
+	{
+		printf("Invalid syntax. ./philo [number of philosophers]\
+[time to die][time to eat][time to sleep][OPT number of meals]\n");
 		return (1);
+	}
 	if (ft_check_args(argv))
 		return (2);
 	if (ft_init_table(&table, argv))

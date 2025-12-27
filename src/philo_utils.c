@@ -6,7 +6,7 @@
 /*   By: adpinhei <adpinhei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/26 16:13:57 by adpinhei          #+#    #+#             */
-/*   Updated: 2025/12/27 18:04:00 by adpinhei         ###   ########.fr       */
+/*   Updated: 2025/12/27 18:28:16 by adpinhei         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -21,16 +21,16 @@ int	ft_atol(char *str)
 	long	i;
 	int		c;
 
-	if (!str)
-		return (0);
 	c = 0;
-	while (str[c] && (str[c] < '0' || str[c] > '9'))
+	while (str[c] && (str[c] == ' ' || str[c] == '\t'))
+		c++;
+	if (str[c] == '+' || str[c] == '-')
 	{
 		if (str[c] == '-')
 			return (-1);
 		c++;
 	}
-	if (str[c] == '\0')
+	if (str[c] < '0' || str[c] > '9')
 		return (0);
 	i = 0;
 	while (str[c] && (str[c] >= '0' && str[c] <= '9'))
@@ -38,6 +38,8 @@ int	ft_atol(char *str)
 		i = i * 10 + (str[c] - 48);
 		c++;
 	}
+	if (str[c] != '\0')
+		return (0);
 	if (i > INT_MAX)
 		return (-2);
 	return ((int)i);
@@ -57,7 +59,7 @@ int	ft_check_args(char **argv)
 		num = ft_atol(argv[i]);
 		if (num == 0)
 		{
-			printf("Number cannot be 0.\n");
+			printf("Must be a valid number.\n");
 			return (1);
 		}
 		else if (num == -1)
