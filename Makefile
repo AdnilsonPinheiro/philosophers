@@ -6,7 +6,7 @@
 #    By: adpinhei <adpinhei@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/12/26 15:24:18 by adpinhei          #+#    #+#              #
-#    Updated: 2025/12/27 15:49:43 by adpinhei         ###   ########.fr        #
+#    Updated: 2025/12/27 18:05:13 by adpinhei         ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -20,7 +20,7 @@ CC := cc
 ###############################################################################
 #                                    Flags                                    #
 ###############################################################################
-FLAGS = -Wall -Wextra -Werror -pthread -g
+FLAGS = -Wall -Wextra -Werror -pthread
 
 ###############################################################################
 #                                    vpath                                    #
@@ -94,23 +94,22 @@ norm:
 valgrind: $(NAME)
 	@echo "$(YELLOW)Valgrind Report$(RESET)"
 	@valgrind --leak-check=full \
-	--suppressions=./.supp/readline.supp \
 	--show-leak-kinds=all \
 	--track-origins=yes \
 	--trace-children=yes \
 	--track-fds=yes \
-	./$(NAME)
+	./$(NAME) 2 2 8 2
 
 gdb: $(NAME)
-	@gdb --tui ./$(NAME)
+	@gdb --tui ./$(NAME) 2 2 8 2
 
 leak: $(NAME)
 	@echo "$(YELLOW)Running with sanitizers (adress, leak, undefined)$(RESET)"
-	@./$(NAME)
+	@./$(NAME) 5 5 8 2
 
 thr: $(NAME)
 	@echo "$(YELLOW)Running with sanitizers (threads, undefined)$(RESET)"
-	@./$(NAME)
+	@./$(NAME) 5 5 8 5
 
 ###############################################################################
 #                                  Clean up                                   #

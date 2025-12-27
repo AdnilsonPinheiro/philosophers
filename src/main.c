@@ -6,7 +6,7 @@
 /*   By: adpinhei <adpinhei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/26 15:43:54 by adpinhei          #+#    #+#             */
-/*   Updated: 2025/12/27 15:48:30 by adpinhei         ###   ########.fr       */
+/*   Updated: 2025/12/27 17:56:17 by adpinhei         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -45,34 +45,37 @@ int	ft_init_table(t_table *table, char **argv)
 void	ft_summon_philo(t_table *table)
 {
 	int		i;
-	t_philo	philo[table->philo_number];
+	t_philo	*philos;
 
+	philos = malloc(sizeof(t_philo) * table->philo_number);
+	if (!philos)
+	{
+		ft_clean_table(table, "Unable to allocate philos.");
+		return ;
+	}
 	i = 0;
 	while (i < table->philo_number)
 	{
-		philo[i].table = table;
-		philo[i].last_meal = -1;
-		philo[i].philo_id = i + 1;
-		if ((i + 1) % 2 == 0)
+		philos[i].table = table;
+		philos[i].last_meal = 0;
+		philos[i].meals_eaten = 0;
+		philos[i].philo_id = i + 1;
+		if (pthread_create(&philos[i].th_id, NULL, &routine, (void*)&philos[i]))
 		{
-			if (pthread_create(&philo[i].th_id, NULL, &routine, NULL))
-			{
-				ft_clean_table(table, "Unable to create thread.");
-				ft_clean_philo(philo, table->philo_number);
-				return ;
-			}
-		}
-		else
-		{
-			if (pthread_create(&philo[i].th_id, NULL, &routine, NULL))
-			{
-				ft_clean_table(table, "Unable to create thread.");
-				ft_clean_philo(philo, table->philo_number);
-				return ;
-			}
+			ft_clean_philo(philos, i);
+			ft_clean_table(table, "Unable to create thread.");
+			free (philos);
+			return ;
 		}
 		i++;
 	}
+	i = 0;
+	while (i < table->philo_number)
+	{
+		pthread_join(philos[i].th_id, NULL);
+		i++;
+	}
+	free(philos);
 }
 
 int	main(int argc, char **argv)

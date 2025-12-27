@@ -6,7 +6,7 @@
 /*   By: adpinhei <adpinhei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/26 15:30:53 by adpinhei          #+#    #+#             */
-/*   Updated: 2025/12/27 15:44:26 by adpinhei         ###   ########.fr       */
+/*   Updated: 2025/12/27 16:57:40 by adpinhei         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -39,6 +39,7 @@ typedef struct s_philo
 	t_table		*table;
 	long long	last_meal;
 	int			philo_id;
+	int			meals_eaten;
 }	t_philo;
 
 /******************************************************************************/

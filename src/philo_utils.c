@@ -6,7 +6,7 @@
 /*   By: adpinhei <adpinhei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/26 16:13:57 by adpinhei          #+#    #+#             */
-/*   Updated: 2025/12/27 15:47:30 by adpinhei         ###   ########.fr       */
+/*   Updated: 2025/12/27 18:04:00 by adpinhei         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -32,6 +32,7 @@ int	ft_atol(char *str)
 	}
 	if (str[c] == '\0')
 		return (0);
+	i = 0;
 	while (str[c] && (str[c] >= '0' && str[c] <= '9'))
 	{
 		i = i * 10 + (str[c] - 48);
@@ -48,21 +49,23 @@ int	ft_atol(char *str)
 int	ft_check_args(char **argv)
 {
 	int	i;
+	int	num;
 
-	i = 0;
+	i = 1;
 	while (argv[i])
 	{
-		if (ft_atol(argv[i]) == 0)
+		num = ft_atol(argv[i]);
+		if (num == 0)
 		{
 			printf("Number cannot be 0.\n");
 			return (1);
 		}
-		else if (ft_atol(argv[i]) == -1)
+		else if (num == -1)
 		{
 			printf("Number cannot be negative.\n");
 			return (2);
 		}
-		else if (ft_atol(argv[i]) == -2)
+		else if (num == -2)
 		{
 			printf("Number should not be greater than INT_MAX.\n");
 			return (3);
