@@ -6,7 +6,7 @@
 #    By: adpinhei <adpinhei@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/12/26 15:24:18 by adpinhei          #+#    #+#              #
-#    Updated: 2025/12/28 20:00:19 by adpinhei         ###   ########.fr        #
+#    Updated: 2025/12/28 20:17:42 by adpinhei         ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -110,7 +110,7 @@ leak: $(NAME)
 
 thr: $(NAME)
 	@echo "$(YELLOW)Running with sanitizers (threads, undefined)$(RESET)"
-	@./$(NAME) 5 800 400 400
+	@./$(NAME) 5 801 400 400
 
 ###############################################################################
 #                                  Clean up                                   #
