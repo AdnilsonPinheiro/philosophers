@@ -6,11 +6,17 @@
 /*   By: adpinhei <adpinhei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/28 16:50:37 by adpinhei          #+#    #+#             */
-/*   Updated: 2025/12/28 17:47:27 by adpinhei         ###   ########.fr       */
+/*   Updated: 2025/12/28 20:08:02 by adpinhei         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
 #include "../includes/philo.h"
+
+static void	ft_death_print(int i)
+{
+	printf("Fdp numero %d foi de comes e bebes.\n", i);
+}
+
 
 void	*monitor_routine(void *arg)
 {
@@ -27,7 +33,7 @@ void	*monitor_routine(void *arg)
 			if ((ft_get_time() - table->philos[i].last_meal) > table->time_to_die)
 			{
 				table->death_flag = 1;
-				ft_print_status(&(*table).philos[i], "has died.");
+				ft_death_print(i);
 				pthread_mutex_unlock(&table->death_lock);
 				return (NULL) ;
 			}

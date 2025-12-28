@@ -6,7 +6,7 @@
 /*   By: adpinhei <adpinhei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/26 16:13:57 by adpinhei          #+#    #+#             */
-/*   Updated: 2025/12/28 18:56:00 by adpinhei         ###   ########.fr       */
+/*   Updated: 2025/12/28 19:57:23 by adpinhei         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -127,7 +127,7 @@ void	ft_summon_philo(t_table *table)
 	int			i;
 	long long	utime;
 
-	table->philos = malloc(sizeof(pthread_t) * table->philo_number);
+	table->philos = malloc(sizeof(t_philo) * table->philo_number);
 	if (!table->philos)
 	{
 		printf("Unable to allocate philosophers\n");
