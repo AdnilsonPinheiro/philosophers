@@ -6,7 +6,7 @@
 #    By: adpinhei <adpinhei@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/12/26 15:24:18 by adpinhei          #+#    #+#              #
-#    Updated: 2025/12/28 17:05:08 by adpinhei         ###   ########.fr        #
+#    Updated: 2025/12/28 18:43:36 by adpinhei         ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -83,7 +83,7 @@ $(BUILD_DIR)/%.o: %.c
 #                               Build executable                              #
 ###############################################################################
 $(NAME): $(OBJ_FILES) $(LIBFT)
-	@$(CC) $(FLAGS) $(OBJ_FILES) $(LIBFT) $(LDFLAGS) -o $@
+	@$(CC) $(FLAGS) $(OBJ_FILES) -o $@
 	@echo "$(YELLOW)Compiled$(RESET) $(NAME)"
 
 ###############################################################################
@@ -106,11 +106,11 @@ gdb: $(NAME)
 
 leak: $(NAME)
 	@echo "$(YELLOW)Running with sanitizers (adress, leak, undefined)$(RESET)"
-	@./$(NAME) 5 8000 800 800 5
+	@./$(NAME) 5 800 800 800 5
 
 thr: $(NAME)
 	@echo "$(YELLOW)Running with sanitizers (threads, undefined)$(RESET)"
-	@./$(NAME) 5 8000 800 800 5
+	@./$(NAME) 5 800 800 800 5
 
 ###############################################################################
 #                                  Clean up                                   #

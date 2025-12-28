@@ -6,7 +6,7 @@
 /*   By: adpinhei <adpinhei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/26 15:30:53 by adpinhei          #+#    #+#             */
-/*   Updated: 2025/12/28 16:56:48 by adpinhei         ###   ########.fr       */
+/*   Updated: 2025/12/28 18:46:56 by adpinhei         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -75,6 +75,5 @@ void		ft_summon_philo(t_table *table);
 /******************************************************************************/
 
 void		ft_clean_table(t_table *table, char *msg);
-void		ft_clean_philo(t_philo *philo, int philo_number);
 
 #endif

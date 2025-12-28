@@ -6,7 +6,7 @@
 /*   By: adpinhei <adpinhei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/26 15:43:54 by adpinhei          #+#    #+#             */
-/*   Updated: 2025/12/28 17:06:12 by adpinhei         ###   ########.fr       */
+/*   Updated: 2025/12/28 18:45:37 by adpinhei         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -26,9 +26,7 @@ int	main(int argc, char **argv)
 	if (ft_check_args(argv))
 		return (2);
 	if (ft_init_table(&table, argv))
-		ft_clean_table(&table, "Initialization failed");
-	if (!table.forks)
-		return (ft_clean_table(&table, "Unable to alloc forks"), 3);
+		return (ft_clean_table(&table, "Initialization failed"), 3);
 	ft_summon_philo(&table);
 	ft_clean_table(&table, NULL);
 }

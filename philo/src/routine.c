@@ -6,7 +6,7 @@
 /*   By: adpinhei <adpinhei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/26 17:41:15 by adpinhei          #+#    #+#             */
-/*   Updated: 2025/12/28 16:42:12 by adpinhei         ###   ########.fr       */
+/*   Updated: 2025/12/28 17:27:26 by adpinhei         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -39,7 +39,9 @@ void	*routine(void *args)
 		else
 			ft_pickforks(philo, right_fork, left_fork);
 		ft_print_status(philo, "is eating.");
+		pthread_mutex_lock(&philo->table->death_lock);
 		philo->last_meal = ft_get_time();
+		pthread_mutex_unlock(&philo->table->death_lock);
 		philo->meals_eaten += 1;
 		ft_sleep((long long)philo->table->time_to_eat, philo);
 		if (philo->philo_id % 2 == 0)

@@ -6,7 +6,7 @@
 /*   By: adpinhei <adpinhei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/26 16:13:57 by adpinhei          #+#    #+#             */
-/*   Updated: 2025/12/28 16:59:55 by adpinhei         ###   ########.fr       */
+/*   Updated: 2025/12/28 18:56:00 by adpinhei         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -89,19 +89,32 @@ int	ft_init_table(t_table *table, char **argv)
 	table->time_to_die = ft_atol(argv[2]);
 	table->time_to_eat = ft_atol(argv[3]);
 	table->time_to_sleep = ft_atol(argv[4]);
+	table->philos = NULL;
+	table->forks = NULL;
 	if (argv[5])
 		table->number_of_meals = ft_atol(argv[5]);
 	else
 		table->number_of_meals = -1;
 	gettimeofday(&table->start_time, NULL);
 	table->forks = malloc(sizeof(pthread_mutex_t) * table->philo_number);
-	if (pthread_mutex_init(&table->death_lock, NULL))
+	if (!table->forks)
 		return (1);
+	if (pthread_mutex_init(&table->death_lock, NULL))
+	{
+		free(table->forks);
+		return (2);
+	}
 	i = 0;
 	while (i < table->philo_number)
 	{
 		if (pthread_mutex_init(&table->forks[i], NULL))
-			return (2);
+		{
+			while (--i >= 0)
+				pthread_mutex_destroy(&table->forks[i]);
+			pthread_mutex_destroy(&table->death_lock);
+			free(table->forks);
+			return (3);
+		}
 		i++;
 	}
 	return (0);
@@ -110,44 +123,60 @@ int	ft_init_table(t_table *table, char **argv)
 /// @brief summons all philosophers threads
 void	ft_summon_philo(t_table *table)
 {
-	int		i;
-	t_philo	*philos;
-	t_philo	*monitor;
+	pthread_t	monitor;
+	int			i;
+	long long	utime;
 
-	philos = malloc(sizeof(t_philo) * table->philo_number);
-	if (!philos)
+	table->philos = malloc(sizeof(pthread_t) * table->philo_number);
+	if (!table->philos)
 	{
-		ft_clean_table(table, "Unable to allocate philosophers.");
+		printf("Unable to allocate philosophers\n");
 		return ;
+	}
+	i = 0;
+	utime = ft_get_time();
+	while (i < table->philo_number)
+	{
+		table->philos[i].table = table;
+		table->philos[i].last_meal = utime;
+		table->philos[i].philo_id = i + 1;
+		table->philos[i].meals_eaten = 0;
+		i++;
 	}
 	i = 0;
 	while (i < table->philo_number)
 	{
-		philos[i].table = table;
-		philos[i].last_meal = ft_get_time();
-		philos[i].meals_eaten = 0;
-		philos[i].philo_id = i + 1;
-		if (pthread_create(&philos[i].th_id, NULL, &routine, (void*)&philos[i]))
+		if (pthread_create(&table->philos[i].th_id, NULL, &routine,\
+(void*)&table->philos[i]))
 		{
-			ft_clean_philo(philos, i);
-			ft_clean_table(table, "Unable to create thread.");
-			free (philos);
+			printf("Unable to create thread %d\n", i + 1);
+			table->death_flag = 1;
+			while (--i >= 0)
+				pthread_join(table->philos[i].th_id, NULL);
+			free(table->philos);
 			return ;
 		}
 		i++;
 	}
-	monitor = malloc(sizeof(t_philo));
-	/*if !monitor clean up*/
-	monitor->last_meal = -1;
-	monitor->meals_eaten = -1;
-	monitor->philo_id = -1;
-	monitor->table = table;
-	pthread_create(&monitor->th_id, NULL, &monitor_routine, (void*)&table);
+	if (pthread_create(&monitor, NULL, &monitor_routine, (void*)table))
+	{
+		printf("Unable to create monitor thread\n");
+		table->death_flag = 1;
+		i = 0;
+		while (i < table->philo_number)
+		{
+			pthread_join(table->philos[i].th_id, NULL);
+			i++;
+		}
+		free(table->philos);
+		return ;
+	}
+	pthread_join(monitor, NULL);
 	i = 0;
 	while (i < table->philo_number)
 	{
-		pthread_join(philos[i].th_id, NULL);
+		pthread_join(table->philos[i].th_id, NULL);
 		i++;
 	}
-	free(philos);
+	free(table->philos);
 }
