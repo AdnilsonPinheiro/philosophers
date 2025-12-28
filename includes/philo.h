@@ -6,7 +6,7 @@
 /*   By: adpinhei <adpinhei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/26 15:30:53 by adpinhei          #+#    #+#             */
-/*   Updated: 2025/12/27 20:06:11 by adpinhei         ###   ########.fr       */
+/*   Updated: 2025/12/27 20:14:22 by adpinhei         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -31,6 +31,8 @@ typedef struct s_table
 	int				number_of_meals;
 	struct timeval	start_time;
 	int				death_flag;
+	pthread_t		monitor;
+	struct s_philo	*philos;
 }	t_table;
 
 typedef struct s_philo
