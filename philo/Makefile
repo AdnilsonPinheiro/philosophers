@@ -6,7 +6,7 @@
 #    By: adpinhei <adpinhei@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/12/26 15:24:18 by adpinhei          #+#    #+#              #
-#    Updated: 2025/12/28 15:45:19 by adpinhei         ###   ########.fr        #
+#    Updated: 2025/12/28 17:05:08 by adpinhei         ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -37,7 +37,8 @@ BUILD_DIR := build
 #                               Source Files                                  #
 ###############################################################################
 
-SRC_FILES := main.c philo_utils.c clean.c routine.c time.c
+SRC_FILES := main.c philo_utils.c clean.c routine.c time.c\
+			monitor_routine.c
 
 ###############################################################################
 #                               Object Files                                  #
@@ -105,11 +106,11 @@ gdb: $(NAME)
 
 leak: $(NAME)
 	@echo "$(YELLOW)Running with sanitizers (adress, leak, undefined)$(RESET)"
-	@./$(NAME) 5 8000 800 800
+	@./$(NAME) 5 8000 800 800 5
 
 thr: $(NAME)
 	@echo "$(YELLOW)Running with sanitizers (threads, undefined)$(RESET)"
-	@./$(NAME) 5 8000 800 800
+	@./$(NAME) 5 8000 800 800 5
 
 ###############################################################################
 #                                  Clean up                                   #

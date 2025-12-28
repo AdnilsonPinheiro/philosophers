@@ -6,7 +6,7 @@
 /*   By: adpinhei <adpinhei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/26 16:13:57 by adpinhei          #+#    #+#             */
-/*   Updated: 2025/12/28 15:38:51 by adpinhei         ###   ########.fr       */
+/*   Updated: 2025/12/28 16:59:55 by adpinhei         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -112,6 +112,7 @@ void	ft_summon_philo(t_table *table)
 {
 	int		i;
 	t_philo	*philos;
+	t_philo	*monitor;
 
 	philos = malloc(sizeof(t_philo) * table->philo_number);
 	if (!philos)
@@ -135,12 +136,18 @@ void	ft_summon_philo(t_table *table)
 		}
 		i++;
 	}
+	monitor = malloc(sizeof(t_philo));
+	/*if !monitor clean up*/
+	monitor->last_meal = -1;
+	monitor->meals_eaten = -1;
+	monitor->philo_id = -1;
+	monitor->table = table;
+	pthread_create(&monitor->th_id, NULL, &monitor_routine, (void*)&table);
 	i = 0;
 	while (i < table->philo_number)
 	{
 		pthread_join(philos[i].th_id, NULL);
 		i++;
 	}
-	/*make a monitoring thread*/
 	free(philos);
 }

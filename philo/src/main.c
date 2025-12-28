@@ -6,7 +6,7 @@
 /*   By: adpinhei <adpinhei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/26 15:43:54 by adpinhei          #+#    #+#             */
-/*   Updated: 2025/12/27 20:05:41 by adpinhei         ###   ########.fr       */
+/*   Updated: 2025/12/28 17:06:12 by adpinhei         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -18,8 +18,9 @@ int	main(int argc, char **argv)
 
 	if (argc != 5 && argc != 6)
 	{
-		printf("Invalid syntax. ./philo [number of philosophers]\
-[time to die][time to eat][time to sleep][OPT number of meals]\n");
+		printf("Invalid syntax.\n\n./philo\n\t[number of philosophers]\
+\n\t[time to die]\n\t[time to eat]\n\t[time to sleep]\n\t\
+[OPT number of meals]\n");
 		return (1);
 	}
 	if (ft_check_args(argv))

@@ -6,7 +6,7 @@
 /*   By: adpinhei <adpinhei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/26 17:41:15 by adpinhei          #+#    #+#             */
-/*   Updated: 2025/12/28 16:11:40 by adpinhei         ###   ########.fr       */
+/*   Updated: 2025/12/28 16:42:12 by adpinhei         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -33,12 +33,12 @@ void	*routine(void *args)
 			break ;
 		}
 		pthread_mutex_unlock(&philo->table->death_lock);
-		ft_print_status(philo, "is thinking");
+		ft_print_status(philo, "is thinking.");
 		if (philo->philo_id % 2 == 0)
 			ft_pickforks(philo, left_fork, right_fork);
 		else
 			ft_pickforks(philo, right_fork, left_fork);
-		ft_print_status(philo, "is eating");
+		ft_print_status(philo, "is eating.");
 		philo->last_meal = ft_get_time();
 		philo->meals_eaten += 1;
 		ft_sleep((long long)philo->table->time_to_eat, philo);
@@ -46,8 +46,9 @@ void	*routine(void *args)
 			ft_releaseforks(philo, right_fork, left_fork);
 		else
 			ft_releaseforks(philo, left_fork, right_fork);
-		/*check for enough meals*/
-		ft_print_status(philo, "is sleeping");
+		if (philo->meals_eaten == philo->table->number_of_meals)
+			break ;
+		ft_print_status(philo, "is sleeping.");
 		ft_sleep((long long)philo->table->time_to_sleep, philo);
 	}
 	return (NULL);
@@ -68,7 +69,7 @@ void	ft_print_status(t_philo *philo, char *status)
 		return ;
 	}
 	timestamp = ft_elapsed_time(&philo->table->start_time);
-	printf("%lldms philosopher %d %s\n", timestamp, philo->philo_id, status);
+	printf("%lldms\tphilosopher %d %s\n", timestamp, philo->philo_id, status);
 	pthread_mutex_unlock(&philo->table->death_lock);
 }
 
@@ -76,13 +77,13 @@ static void	ft_pickforks(t_philo *philo, int first_fork, int sec_fork)
 {
 	if (pthread_mutex_lock(&philo->table->forks[first_fork]))
 		return ;
-	ft_print_status(philo, "has taken a fork");
+	ft_print_status(philo, "has taken a fork.");
 	if (pthread_mutex_lock(&philo->table->forks[sec_fork]))
 	{
 		pthread_mutex_unlock(&philo->table->forks[first_fork]);
 		return ;
 	}
-	ft_print_status(philo, "has taken a fork");
+	ft_print_status(philo, "has taken a fork.");
 }
 
 static void	ft_releaseforks(t_philo *philo, int first_fork, int sec_fork)
