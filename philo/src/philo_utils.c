@@ -6,7 +6,7 @@
 /*   By: adpinhei <adpinhei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/26 16:13:57 by adpinhei          #+#    #+#             */
-/*   Updated: 2025/12/27 20:17:03 by adpinhei         ###   ########.fr       */
+/*   Updated: 2025/12/28 15:38:51 by adpinhei         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -116,7 +116,7 @@ void	ft_summon_philo(t_table *table)
 	philos = malloc(sizeof(t_philo) * table->philo_number);
 	if (!philos)
 	{
-		ft_clean_table(table, "Unable to allocate philos.");
+		ft_clean_table(table, "Unable to allocate philosophers.");
 		return ;
 	}
 	i = 0;

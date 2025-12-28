@@ -6,7 +6,7 @@
 #    By: adpinhei <adpinhei@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/12/26 15:24:18 by adpinhei          #+#    #+#              #
-#    Updated: 2025/12/27 18:57:49 by adpinhei         ###   ########.fr        #
+#    Updated: 2025/12/28 15:45:19 by adpinhei         ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -98,18 +98,18 @@ valgrind: $(NAME)
 	--track-origins=yes \
 	--trace-children=yes \
 	--track-fds=yes \
-	./$(NAME) 2 2 8 2
+	./$(NAME) 5 8000 800 800
 
 gdb: $(NAME)
 	@gdb --tui ./$(NAME) 2 2 8 2
 
 leak: $(NAME)
 	@echo "$(YELLOW)Running with sanitizers (adress, leak, undefined)$(RESET)"
-	@./$(NAME) 5 5 8 2
+	@./$(NAME) 5 8000 800 800
 
 thr: $(NAME)
 	@echo "$(YELLOW)Running with sanitizers (threads, undefined)$(RESET)"
-	@./$(NAME) 5 5 8 5
+	@./$(NAME) 5 8000 800 800
 
 ###############################################################################
 #                                  Clean up                                   #

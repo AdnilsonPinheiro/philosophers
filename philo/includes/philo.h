@@ -6,7 +6,7 @@
 /*   By: adpinhei <adpinhei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/26 15:30:53 by adpinhei          #+#    #+#             */
-/*   Updated: 2025/12/27 20:14:22 by adpinhei         ###   ########.fr       */
+/*   Updated: 2025/12/28 16:15:47 by adpinhei         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -22,6 +22,8 @@
 
 typedef struct s_table
 {
+	struct timeval	start_time;
+	pthread_t		monitor;
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	death_lock;
 	int				philo_number;
@@ -29,16 +31,13 @@ typedef struct s_table
 	int				time_to_eat;
 	int				time_to_sleep;
 	int				number_of_meals;
-	struct timeval	start_time;
 	int				death_flag;
-	pthread_t		monitor;
-	struct s_philo	*philos;
 }	t_table;
 
 typedef struct s_philo
 {
-	pthread_t	th_id;
 	t_table		*table;
+	pthread_t	th_id;
 	long long	last_meal;
 	int			philo_id;
 	int			meals_eaten;
@@ -57,7 +56,7 @@ void		ft_print_status(t_philo *philo, char *status);
 
 long long	ft_get_time(void);
 long long	ft_elapsed_time(struct timeval *start_time);
-void		ft_sleep(long long interval);
+void		ft_sleep(long long interval, t_philo *philo);
 
 
 /******************************************************************************/
