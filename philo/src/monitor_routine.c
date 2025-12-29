@@ -1,4 +1,4 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   monitor_routine.c                                  :+:      :+:    :+:   */
@@ -6,9 +6,9 @@
 /*   By: adpinhei <adpinhei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/28 16:50:37 by adpinhei          #+#    #+#             */
-/*   Updated: 2025/12/29 18:04:26 by adpinhei         ###   ########.fr       */
+/*   Updated: 2025/12/29 18:26:37 by adpinhei         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include "../includes/philo.h"
 
@@ -20,25 +20,25 @@ static void	ft_death_print(int i, t_table *table)
 	printf("%llums\tphilosopher %d died.\n", time_of_death, i);
 }
 
-
 void	*monitor_routine(void *arg)
 {
 	t_table	*table;
 	int		i;
 
-	table = (t_table*)arg;
+	table = (t_table *)arg;
 	while (1)
 	{
 		i = 0;
 		while (i < table->philo_number)
 		{
 			pthread_mutex_lock(&table->death_lock);
-			if ((ft_get_time() - table->philos[i].last_meal) > table->time_to_die)
+			if ((ft_get_time() - table->philos[i].last_meal) \
+> table->time_to_die)
 			{
 				table->death_flag = 1;
 				pthread_mutex_unlock(&table->death_lock);
 				ft_death_print(table->philos[i].philo_id, table);
-				return (NULL) ;
+				return (NULL);
 			}
 			pthread_mutex_unlock(&table->death_lock);
 			i++;

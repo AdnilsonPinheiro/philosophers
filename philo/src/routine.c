@@ -1,4 +1,4 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   routine.c                                          :+:      :+:    :+:   */
@@ -6,14 +6,16 @@
 /*   By: adpinhei <adpinhei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/26 17:41:15 by adpinhei          #+#    #+#             */
-/*   Updated: 2025/12/29 18:07:46 by adpinhei         ###   ########.fr       */
+/*   Updated: 2025/12/29 18:41:20 by adpinhei         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include "../includes/philo.h"
 
 static void	ft_pickforks(t_philo *philo, int first_fork, int sec_fork);
 static void	ft_releaseforks(t_philo *philo, int first_fork, int sec_fork);
+static void	routine_loop(t_philo *philo, int left_fork, int right_fork);
+static int	death_check(t_philo *philo);
 
 void	*routine(void *args)
 {
@@ -21,18 +23,19 @@ void	*routine(void *args)
 	int		left_fork;
 	int		right_fork;
 
-	philo = (t_philo*)args;
+	philo = (t_philo *)args;
 	left_fork = philo->philo_id - 1;
 	right_fork = philo->philo_id % philo->table->philo_number;
+	routine_loop(philo, left_fork, right_fork);
+	return (NULL);
+}
+
+static void	routine_loop(t_philo *philo, int left_fork, int right_fork)
+{
 	while (1)
 	{
-		pthread_mutex_lock(&philo->table->death_lock);
-		if (philo->table->death_flag)
-		{
-			pthread_mutex_unlock(&philo->table->death_lock);
-			break ;
-		}
-		pthread_mutex_unlock(&philo->table->death_lock);
+		if (death_check(philo))
+			return ;
 		ft_print_status(philo, "is thinking.");
 		if (philo->philo_id % 2 == 0)
 			ft_pickforks(philo, left_fork, right_fork);
@@ -49,30 +52,22 @@ void	*routine(void *args)
 		else
 			ft_releaseforks(philo, left_fork, right_fork);
 		if (philo->meals_eaten == philo->table->number_of_meals)
-			break ;
+			return ;
 		ft_print_status(philo, "is sleeping.");
 		ft_sleep((long long)philo->table->time_to_sleep, philo);
 	}
-	return (NULL);
 }
 
-/// @brief prints the philosopher status
-/// @param philo the current thread
-/// @param status what the philosopher is doing (e.g. eating, thinking or sleeping)
-void	ft_print_status(t_philo *philo, char *status)
+static int	death_check(t_philo *philo)
 {
-	long long	timestamp;
-
-	if (pthread_mutex_lock(&philo->table->death_lock))
-		return ;
+	pthread_mutex_lock(&philo->table->death_lock);
 	if (philo->table->death_flag)
 	{
 		pthread_mutex_unlock(&philo->table->death_lock);
-		return ;
+		return (1);
 	}
-	timestamp = ft_elapsed_time(&philo->table->start_time);
 	pthread_mutex_unlock(&philo->table->death_lock);
-	printf("%lldms\tphilosopher %d %s\n", timestamp, philo->philo_id, status);
+	return (0);
 }
 
 static void	ft_pickforks(t_philo *philo, int first_fork, int sec_fork)

@@ -1,26 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lonely_philo.c                                     :+:      :+:    :+:   */
+/*   print_status.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adpinhei <adpinhei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/12/29 17:38:54 by adpinhei          #+#    #+#             */
-/*   Updated: 2025/12/29 18:26:12 by adpinhei         ###   ########.fr       */
+/*   Created: 2025/12/29 18:39:58 by adpinhei          #+#    #+#             */
+/*   Updated: 2025/12/29 18:40:55 by adpinhei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
-void	ft_lonely_philo(t_table *table)
+void	ft_print_status(t_philo *philo, char *status)
 {
-	long long	start;
+	long long	timestamp;
 
-	start = ft_get_time();
-	printf("%lldms\tphilosopher %d has taken a fork.\n", \
-ft_elapsed_time(&table->start_time), 1);
-	while (ft_get_time() - start < table->time_to_die)
-		usleep(1);
-	printf("%lldms\tphilosopher %d has died.\n", \
-ft_elapsed_time(&table->start_time), 1);
+	if (pthread_mutex_lock(&philo->table->death_lock))
+		return ;
+	if (philo->table->death_flag)
+	{
+		pthread_mutex_unlock(&philo->table->death_lock);
+		return ;
+	}
+	timestamp = ft_elapsed_time(&philo->table->start_time);
+	pthread_mutex_unlock(&philo->table->death_lock);
+	printf("%lldms\tphilosopher %d %s\n", timestamp, philo->philo_id, status);
 }

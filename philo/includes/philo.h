@@ -1,4 +1,4 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
@@ -6,12 +6,12 @@
 /*   By: adpinhei <adpinhei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/26 15:30:53 by adpinhei          #+#    #+#             */
-/*   Updated: 2025/12/29 17:58:13 by adpinhei         ###   ########.fr       */
+/*   Updated: 2025/12/29 18:22:58 by adpinhei         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
-#ifndef PHILO
-# define PHILO
+#ifndef PHILO_H
+# define PHILO_H
 
 # include <unistd.h>
 # include <stdlib.h>
@@ -60,7 +60,6 @@ void		ft_lonely_philo(t_table *table);
 long long	ft_get_time(void);
 long long	ft_elapsed_time(struct timeval *start_time);
 void		ft_sleep(long long interval, t_philo *philo);
-
 
 /******************************************************************************/
 /*                                  Utils                                     */
