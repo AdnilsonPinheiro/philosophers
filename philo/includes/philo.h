@@ -6,7 +6,7 @@
 /*   By: adpinhei <adpinhei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/26 15:30:53 by adpinhei          #+#    #+#             */
-/*   Updated: 2025/12/28 18:46:56 by adpinhei         ###   ########.fr       */
+/*   Updated: 2025/12/29 17:58:13 by adpinhei         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -51,6 +51,7 @@ typedef struct s_philo
 void		*routine(void *args);
 void		*monitor_routine(void *arg);
 void		ft_print_status(t_philo *philo, char *status);
+void		ft_lonely_philo(t_table *table);
 
 /******************************************************************************/
 /*                              Time Functions                                */

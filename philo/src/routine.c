@@ -6,7 +6,7 @@
 /*   By: adpinhei <adpinhei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/26 17:41:15 by adpinhei          #+#    #+#             */
-/*   Updated: 2025/12/28 20:32:23 by adpinhei         ###   ########.fr       */
+/*   Updated: 2025/12/29 18:07:46 by adpinhei         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -71,8 +71,8 @@ void	ft_print_status(t_philo *philo, char *status)
 		return ;
 	}
 	timestamp = ft_elapsed_time(&philo->table->start_time);
-	printf("%lldms\tphilosopher %d %s\n", timestamp, philo->philo_id, status);
 	pthread_mutex_unlock(&philo->table->death_lock);
+	printf("%lldms\tphilosopher %d %s\n", timestamp, philo->philo_id, status);
 }
 
 static void	ft_pickforks(t_philo *philo, int first_fork, int sec_fork)

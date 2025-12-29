@@ -6,7 +6,7 @@
 #    By: adpinhei <adpinhei@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/12/26 15:24:18 by adpinhei          #+#    #+#              #
-#    Updated: 2025/12/29 17:32:38 by adpinhei         ###   ########.fr        #
+#    Updated: 2025/12/29 18:04:40 by adpinhei         ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -38,7 +38,7 @@ BUILD_DIR := build
 ###############################################################################
 
 SRC_FILES := main.c philo_utils.c clean.c routine.c time.c\
-			monitor_routine.c
+			monitor_routine.c lonely_philo.c
 
 ###############################################################################
 #                               Object Files                                  #
@@ -53,7 +53,7 @@ INCLUDES := philo.h
 ###############################################################################
 #                                Debug Flags                                  #
 ###############################################################################
-gdb: FLAGS += -g
+gdb: FLAGS += -gusleep
 leak: FLAGS += -fsanitize=address,undefined -g
 thr: FLAGS += -fsanitize=thread,undefined -g
 

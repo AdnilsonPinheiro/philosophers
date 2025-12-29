@@ -6,7 +6,7 @@
 /*   By: adpinhei <adpinhei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/26 16:13:57 by adpinhei          #+#    #+#             */
-/*   Updated: 2025/12/28 19:57:23 by adpinhei         ###   ########.fr       */
+/*   Updated: 2025/12/29 17:57:35 by adpinhei         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -142,6 +142,11 @@ void	ft_summon_philo(t_table *table)
 		table->philos[i].philo_id = i + 1;
 		table->philos[i].meals_eaten = 0;
 		i++;
+	}
+	if (table->philo_number == 1)
+	{
+		ft_lonely_philo(table);
+		return ;
 	}
 	i = 0;
 	while (i < table->philo_number)
