@@ -6,7 +6,7 @@
 /*   By: adpinhei <adpinhei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/26 17:41:15 by adpinhei          #+#    #+#             */
-/*   Updated: 2025/12/28 20:14:54 by adpinhei         ###   ########.fr       */
+/*   Updated: 2025/12/28 20:32:23 by adpinhei         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -91,7 +91,5 @@ static void	ft_pickforks(t_philo *philo, int first_fork, int sec_fork)
 static void	ft_releaseforks(t_philo *philo, int first_fork, int sec_fork)
 {
 	pthread_mutex_unlock(&philo->table->forks[first_fork]);
-	ft_print_status(philo, "has released a fork.");
 	pthread_mutex_unlock(&philo->table->forks[sec_fork]);
-	ft_print_status(philo, "has released a fork.");
 }

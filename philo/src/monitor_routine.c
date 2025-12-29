@@ -6,7 +6,7 @@
 /*   By: adpinhei <adpinhei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/28 16:50:37 by adpinhei          #+#    #+#             */
-/*   Updated: 2025/12/28 20:24:59 by adpinhei         ###   ########.fr       */
+/*   Updated: 2025/12/29 17:27:29 by adpinhei         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -17,7 +17,7 @@ static void	ft_death_print(int i, t_table *table)
 	long long	time_of_death;
 
 	time_of_death = ft_elapsed_time(&table->start_time);
-	printf("Fdp numero %d foi de comes e bebes as %llu (foi tarde).\n", i, time_of_death);
+	printf("%llums\tphilosopher %d died.\n", time_of_death, i);
 }
 
 
@@ -36,14 +36,14 @@ void	*monitor_routine(void *arg)
 			if ((ft_get_time() - table->philos[i].last_meal) > table->time_to_die)
 			{
 				table->death_flag = 1;
-				ft_death_print(table->philos[i].philo_id, table);
 				pthread_mutex_unlock(&table->death_lock);
+				ft_death_print(table->philos[i].philo_id, table);
 				return (NULL) ;
 			}
 			pthread_mutex_unlock(&table->death_lock);
 			i++;
 		}
-		usleep(100);
+		usleep(1);
 	}
 	return (NULL);
 }

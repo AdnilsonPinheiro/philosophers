@@ -6,7 +6,7 @@
 /*   By: adpinhei <adpinhei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/27 18:57:34 by adpinhei          #+#    #+#             */
-/*   Updated: 2025/12/28 16:10:38 by adpinhei         ###   ########.fr       */
+/*   Updated: 2025/12/28 20:38:45 by adpinhei         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -59,6 +59,6 @@ void	ft_sleep(long long interval, t_philo *philo)
 			return ;
 		}
 		pthread_mutex_unlock(&philo->table->death_lock);
-		usleep(100);
+		usleep(1);
 	}
 }
