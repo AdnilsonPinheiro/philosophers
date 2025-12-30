@@ -6,7 +6,7 @@
 #    By: adpinhei <adpinhei@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/12/26 15:24:18 by adpinhei          #+#    #+#              #
-#    Updated: 2025/12/29 18:51:46 by adpinhei         ###   ########.fr        #
+#    Updated: 2025/12/30 14:26:28 by adpinhei         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -107,11 +107,11 @@ gdb: $(NAME)
 
 leak: $(NAME)
 	@echo "$(YELLOW)Running with sanitizers (adress, leak, undefined)$(RESET)"
-	@./$(NAME) 5 800 800 800 5
+	@./$(NAME) 1 800 200 200
 
 thr: $(NAME)
 	@echo "$(YELLOW)Running with sanitizers (threads, undefined)$(RESET)"
-	@./$(NAME) 4 400 200 200
+	@./$(NAME) 200 410 200 200
 
 ###############################################################################
 #                                  Clean up                                   #

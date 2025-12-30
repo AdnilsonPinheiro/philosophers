@@ -6,13 +6,13 @@
 /*   By: adpinhei <adpinhei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/29 18:46:56 by adpinhei          #+#    #+#             */
-/*   Updated: 2025/12/29 19:03:20 by adpinhei         ###   ########.fr       */
+/*   Updated: 2025/12/30 14:57:12 by adpinhei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
-static void	init_philo(t_table *table);
+static int	init_philo(t_table *table);
 static void	thread_launch(t_table *table);
 static void	monitor_launch(pthread_t *monitor, t_table *table);
 
@@ -28,7 +28,8 @@ void	ft_summon_philo(t_table *table)
 		printf("Unable to allocate philosophers\n");
 		return ;
 	}
-	init_philo(table);
+	if (init_philo(table))
+		return ;
 	thread_launch(table);
 	monitor_launch(&monitor, table);
 	pthread_join(monitor, NULL);
@@ -41,13 +42,14 @@ void	ft_summon_philo(t_table *table)
 	free(table->philos);
 }
 
-static void	init_philo(t_table *table)
+static int	init_philo(t_table *table)
 {
 	int			i;
 	long long	utime;
 
 	i = 0;
-	utime = ft_get_time();
+	utime = (table->start_time.tv_sec * 1000) + \
+(table->start_time.tv_usec / 1000);
 	while (i < table->philo_number)
 	{
 		table->philos[i].table = table;
@@ -59,8 +61,9 @@ static void	init_philo(t_table *table)
 	if (table->philo_number == 1)
 	{
 		ft_lonely_philo(table);
-		return ;
+		return (1);
 	}
+	return (0);
 }
 
 static void	thread_launch(t_table *table)
