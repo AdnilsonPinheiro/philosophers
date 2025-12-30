@@ -6,7 +6,7 @@
 /*   By: adpinhei <adpinhei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/26 15:30:53 by adpinhei          #+#    #+#             */
-/*   Updated: 2025/12/29 18:22:58 by adpinhei         ###   ########.fr       */
+/*   Updated: 2025/12/30 19:13:02 by adpinhei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ typedef struct s_table
 	pthread_t		monitor;
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	death_lock;
+	pthread_mutex_t	print_mutex;
 	int				philo_number;
 	int				time_to_die;
 	int				time_to_eat;
@@ -52,6 +53,8 @@ void		*routine(void *args);
 void		*monitor_routine(void *arg);
 void		ft_print_status(t_philo *philo, char *status);
 void		ft_lonely_philo(t_table *table);
+
+int			update_meal(t_philo *philo);
 
 /******************************************************************************/
 /*                              Time Functions                                */

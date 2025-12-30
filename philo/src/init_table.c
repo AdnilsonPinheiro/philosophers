@@ -6,7 +6,7 @@
 /*   By: adpinhei <adpinhei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/29 18:42:09 by adpinhei          #+#    #+#             */
-/*   Updated: 2025/12/29 19:02:46 by adpinhei         ###   ########.fr       */
+/*   Updated: 2025/12/30 19:13:07 by adpinhei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,9 @@ int	ft_init_table(t_table *table, char **argv)
 	if (!table->forks)
 		return (1);
 	if (pthread_mutex_init(&table->death_lock, NULL))
-	{
-		free(table->forks);
-		return (2);
-	}
+		return (free(table->forks), 2);
+	if (pthread_mutex_init(&table->print_mutex, NULL))
+		return (free(table->forks), 2);
 	ft_mutex_init(table);
 	return (0);
 }

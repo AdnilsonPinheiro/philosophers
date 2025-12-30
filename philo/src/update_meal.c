@@ -1,31 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_status.c                                     :+:      :+:    :+:   */
+/*   update_meal.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adpinhei <adpinhei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/12/29 18:39:58 by adpinhei          #+#    #+#             */
-/*   Updated: 2025/12/30 18:25:17 by adpinhei         ###   ########.fr       */
+/*   Created: 2025/12/30 18:46:21 by adpinhei          #+#    #+#             */
+/*   Updated: 2025/12/30 19:06:52 by adpinhei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
-void	ft_print_status(t_philo *philo, char *status)
+int	update_meal(t_philo *philo)
 {
-	long long	timestamp;
-
-	if (pthread_mutex_lock(&philo->table->death_lock))
-		return ;
+	if (!philo)
+		return (0);
+	pthread_mutex_lock(&philo->table->death_lock);
 	if (philo->table->death_flag)
 	{
 		pthread_mutex_unlock(&philo->table->death_lock);
-		return ;
+		return (1);
 	}
-	timestamp = ft_elapsed_time(&philo->table->start_time);
+	philo->last_meal = ft_get_time();
 	pthread_mutex_unlock(&philo->table->death_lock);
-	pthread_mutex_lock(&philo->table->print_mutex);
-	printf("%lldms\tphilosopher %d %s\n", timestamp, philo->philo_id, status);
-	pthread_mutex_unlock(&philo->table->print_mutex);
+	philo->meals_eaten += 1;
+	return (0);
 }

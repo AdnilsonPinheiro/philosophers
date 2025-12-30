@@ -6,7 +6,7 @@
 /*   By: adpinhei <adpinhei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/29 18:15:03 by adpinhei          #+#    #+#             */
-/*   Updated: 2025/12/29 18:21:21 by adpinhei         ###   ########.fr       */
+/*   Updated: 2025/12/30 18:24:14 by adpinhei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ void	ft_clean_table(t_table *table, char *msg)
 		free(table->forks);
 	}
 	pthread_mutex_destroy(&table->death_lock);
+	pthread_mutex_destroy(&table->print_mutex);
 	if (msg)
 		printf("Error: %s\n", msg);
 }

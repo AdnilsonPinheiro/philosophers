@@ -6,7 +6,7 @@
 /*   By: adpinhei <adpinhei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/28 16:50:37 by adpinhei          #+#    #+#             */
-/*   Updated: 2025/12/30 15:04:53 by adpinhei         ###   ########.fr       */
+/*   Updated: 2025/12/30 19:12:55 by adpinhei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,9 @@ static void	ft_death_print(int i, t_table *table)
 	long long	time_of_death;
 
 	time_of_death = ft_elapsed_time(&table->start_time);
+	pthread_mutex_lock(&table->print_mutex);
 	printf("%llums\tphilosopher %d died.\n", time_of_death, i);
+	pthread_mutex_unlock(&table->print_mutex);
 }
 
 void	*monitor_routine(void *arg)
@@ -25,7 +27,6 @@ void	*monitor_routine(void *arg)
 	t_table	*table;
 	int		i;
 
-	usleep(1000);
 	table = (t_table *)arg;
 	while (1)
 	{
@@ -34,7 +35,7 @@ void	*monitor_routine(void *arg)
 		{
 			pthread_mutex_lock(&table->death_lock);
 			if ((ft_get_time() - table->philos[i].last_meal) \
->= table->time_to_die)
+> table->time_to_die)
 			{
 				table->death_flag = 1;
 				pthread_mutex_unlock(&table->death_lock);

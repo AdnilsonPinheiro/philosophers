@@ -6,7 +6,7 @@
 #    By: adpinhei <adpinhei@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/12/26 15:24:18 by adpinhei          #+#    #+#              #
-#    Updated: 2025/12/30 14:26:28 by adpinhei         ###   ########.fr        #
+#    Updated: 2025/12/30 19:02:34 by adpinhei         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,6 +16,8 @@
 NAME := philo
 
 CC := cc
+
+PARAM := 5 800 200 200
 
 ###############################################################################
 #                                    Flags                                    #
@@ -39,7 +41,7 @@ BUILD_DIR := build
 
 SRC_FILES := main.c philo_utils.c clean.c routine.c time.c\
 			monitor_routine.c lonely_philo.c print_status.c\
-			init_table.c summon_philos.c
+			init_table.c summon_philos.c update_meal.c
 
 ###############################################################################
 #                               Object Files                                  #
@@ -54,14 +56,14 @@ INCLUDES := philo.h
 ###############################################################################
 #                                Debug Flags                                  #
 ###############################################################################
-gdb: FLAGS += -gusleep
+gdb: FLAGS += -g
 leak: FLAGS += -fsanitize=address,undefined -g
 thr: FLAGS += -fsanitize=thread,undefined -g
 
 ###############################################################################
 #                                Basic Rules                                  #
 ###############################################################################
-.PHONY: all clean fclean re valgrind norm gdb leak thread
+.PHONY: all clean fclean re valgrind norm gdb leak thread helgrind
 
 all: $(BUILD_DIR) $(NAME)
 
@@ -100,18 +102,24 @@ valgrind: $(NAME)
 	--track-origins=yes \
 	--trace-children=yes \
 	--track-fds=yes \
-	./$(NAME) 5 8000 800 800
+	--tool=helgrind --tool=drd \
+	./$(NAME) $(PARAM)
+
+helgrind: $(NAME)
+	@echo "$(YELLOW)Helgrind going$(RESET)"
+	@valgrind --tool=helgrind --tool=drd \
+	./$(NAME) $(PARAM)
 
 gdb: $(NAME)
-	@gdb --tui --args ./$(NAME) 5 800 800 800 5
+	@gdb --tui --args ./$(NAME) $(PARAM)
 
 leak: $(NAME)
 	@echo "$(YELLOW)Running with sanitizers (adress, leak, undefined)$(RESET)"
-	@./$(NAME) 1 800 200 200
+	@./$(NAME) $(PARAM)
 
 thr: $(NAME)
 	@echo "$(YELLOW)Running with sanitizers (threads, undefined)$(RESET)"
-	@./$(NAME) 200 410 200 200
+	@./$(NAME) $(PARAM)
 
 ###############################################################################
 #                                  Clean up                                   #
