@@ -6,7 +6,7 @@
 /*   By: adpinhei <adpinhei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/26 17:41:15 by adpinhei          #+#    #+#             */
-/*   Updated: 2026/01/02 17:58:52 by adpinhei         ###   ########.fr       */
+/*   Updated: 2026/01/02 18:07:52 by adpinhei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,12 @@ void	*routine(void *args)
 	philo = (t_philo *)args;
 	left_fork = philo->philo_id - 1;
 	right_fork = philo->philo_id % philo->table->philo_number;
+	pthread_mutex_lock(&philo->table->death_lock);
 	if (philo->table->time_to_eat > philo->table->time_to_die)
 		philo->table->time_to_eat = philo->table->time_to_die;
 	if (philo->table->time_to_sleep > philo->table->time_to_die)
 		philo->table->time_to_sleep = philo->table->time_to_die;
+	pthread_mutex_unlock(&philo->table->death_lock);
 	routine_loop(philo, left_fork, right_fork);
 	return (NULL);
 }
