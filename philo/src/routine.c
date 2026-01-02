@@ -6,7 +6,7 @@
 /*   By: adpinhei <adpinhei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/26 17:41:15 by adpinhei          #+#    #+#             */
-/*   Updated: 2025/12/30 19:14:26 by adpinhei         ###   ########.fr       */
+/*   Updated: 2026/01/02 17:14:41 by adpinhei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static void	routine_loop(t_philo *philo, int left_fork, int right_fork)
 			ft_pickforks(philo, right_fork, left_fork);
 		ft_print_status(philo, "is eating.");
 		if (update_meal(philo))
-			return ;
+			return (ft_releaseforks(philo, right_fork, left_fork));
 		ft_sleep((long long)philo->table->time_to_eat, philo);
 		if (philo->philo_id % 2 == 0)
 			ft_releaseforks(philo, right_fork, left_fork);
