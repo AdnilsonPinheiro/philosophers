@@ -6,7 +6,7 @@
 #    By: adpinhei <adpinhei@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/12/26 15:24:18 by adpinhei          #+#    #+#              #
-#    Updated: 2025/12/30 19:02:34 by adpinhei         ###   ########.fr        #
+#    Updated: 2026/01/02 16:21:09 by adpinhei         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ NAME := philo
 
 CC := cc
 
-PARAM := 5 800 200 200
+PARAM := 0 310 200 100
 
 ###############################################################################
 #                                    Flags                                    #
@@ -102,7 +102,6 @@ valgrind: $(NAME)
 	--track-origins=yes \
 	--trace-children=yes \
 	--track-fds=yes \
-	--tool=helgrind --tool=drd \
 	./$(NAME) $(PARAM)
 
 helgrind: $(NAME)

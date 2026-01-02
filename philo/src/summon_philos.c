@@ -6,7 +6,7 @@
 /*   By: adpinhei <adpinhei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/29 18:46:56 by adpinhei          #+#    #+#             */
-/*   Updated: 2025/12/30 14:57:12 by adpinhei         ###   ########.fr       */
+/*   Updated: 2026/01/02 16:14:01 by adpinhei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	ft_summon_philo(t_table *table)
 		return ;
 	}
 	if (init_philo(table))
-		return ;
+		return (free(table->philos));
 	thread_launch(table);
 	monitor_launch(&monitor, table);
 	pthread_join(monitor, NULL);
